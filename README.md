@@ -2,7 +2,6 @@
 
 An Ansible playbook to setup a network install server.
 
-
 ## usage
 
 ### install dependencies
@@ -10,7 +9,7 @@ An Ansible playbook to setup a network install server.
 Fetch the requirements from ansible galaxy
 
 ```sh
-ansible-galaxy role install -r requirements.yml
+ansible-galaxy install -r requirements.yml
 ```
 
 ### run
