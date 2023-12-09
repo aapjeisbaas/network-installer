@@ -19,6 +19,9 @@
         src: ./docker-compose.yml
         dest: /etc/compose/docker-compose.yml
         mode: "u=rw,g=r,o=r"
-    - name: Docker compose up
+      notify: Restart Compose Service
+  handlers:
+    - name: Restart Compose Service
       community.docker.docker_compose:
         project_src: /etc/compose/
+        restarted: true
