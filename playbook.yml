@@ -1,6 +1,24 @@
-- hosts: all
-  name: Docker setup
+- name: Docker setup
+  hosts: all
   become: true
-
+  vars:
+    pip_install_packages:
+      - name: docker<7.0.0 # bug in 7.0.0 package: https://github.com/docker/docker-py/issues/3194
+      - name: docker-compose
   roles:
-      - role: geerlingguy.docker
+    - geerlingguy.pip
+    - geerlingguy.docker
+  tasks:
+    - name: Ensure compose directory
+      ansible.builtin.file:
+        path: /etc/compose
+        state: directory
+        mode: "u=rwx,g=rx,o=rx"
+    - name: Copy docker-compose.yml
+      ansible.builtin.copy:
+        src: ./docker-compose.yml
+        dest: /etc/compose/docker-compose.yml
+        mode: "u=rw,g=r,o=r"
+    - name: Docker compose up
+      community.docker.docker_compose:
+        project_src: /etc/compose/
