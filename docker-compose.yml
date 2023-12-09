@@ -7,15 +7,9 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Etc/UTC
-      - MENU_VERSION=1.9.9 #optional
-      - PORT_RANGE=30000:30010 #optional
-      - SUBFOLDER=/ #optional
+      - TZ=Europe/Amsterdam
     volumes:
-      - /path/to/config:/config
-      - /path/to/assets:/assets #optional
-    ports:
-      - 3000:3000
-      - 69:69/udp
-      - 8080:80 #optional
+      - /opt/netbootxyz/config:/config
+      - /opt/netbootxyz/assets:/assets
+    network_mode: host
     restart: unless-stopped
